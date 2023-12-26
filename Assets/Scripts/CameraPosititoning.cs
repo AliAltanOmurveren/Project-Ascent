@@ -7,6 +7,7 @@ public class CameraPosititoning : MonoBehaviour
 
     public GameObject ship;
     Vector3[] shipPositions;
+    Quaternion[] shipRotations;
     Vector3 averagePosition;
     int index = 0;
     int smoothingFrameCount = 10;
@@ -14,6 +15,7 @@ public class CameraPosititoning : MonoBehaviour
     void Start()
     {
         shipPositions = new Vector3[smoothingFrameCount];
+        shipRotations = new Quaternion[smoothingFrameCount];
     }
 
 
@@ -22,9 +24,10 @@ public class CameraPosititoning : MonoBehaviour
         
     }
 
-    private void LateUpdate() {
+    private void FixedUpdate() {
 
         shipPositions[index] = ship.transform.position;
+        shipRotations[index] = ship.transform.rotation;
 
         index += 1;
         index %= smoothingFrameCount;
@@ -40,6 +43,16 @@ public class CameraPosititoning : MonoBehaviour
 
         transform.position = averagePosition;
 
-        transform.rotation = ship.transform.rotation;
+        Quaternion averageRotation = Quaternion.identity;
+        
+        int amount = 0;
+
+        foreach(Quaternion rot in shipRotations){
+            amount++;
+
+            averageRotation = Quaternion.Slerp(averageRotation, rot, 1.0f / amount);
+        }
+
+        transform.rotation = averageRotation;
     }
 }

@@ -1,0 +1,11 @@
+problem: fixing camera jitter requires average position
+    - average position means delayed camera movement
+    - delayed camera movement causes to ship's sphere appear relative to camera
+    - delayed camera movement messes with ship's collider position
+solution: 
+    - disable ship's mesh renderer
+    * ship's collider is needed because of physics movement
+    - add main collider to camera
+for future:
+    - test camera collider
+    - fire weapons from camera
