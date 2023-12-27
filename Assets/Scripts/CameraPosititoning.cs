@@ -55,4 +55,9 @@ public class CameraPosititoning : MonoBehaviour
 
         transform.rotation = averageRotation;
     }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, 1);
+    }
 }
