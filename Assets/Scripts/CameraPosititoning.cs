@@ -59,5 +59,7 @@ public class CameraPosititoning : MonoBehaviour
     private void OnDrawGizmos() {
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(transform.position, 1);
+        
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * 2);
     }
 }

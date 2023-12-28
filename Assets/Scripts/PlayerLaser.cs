@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerLaser : MonoBehaviour
 {
-    float force = 75;
+    float force = 2;
     Rigidbody rb;
     float laserLifetime = 3;
     
@@ -31,6 +31,8 @@ public class PlayerLaser : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        Destroy(gameObject);
+        if(other.gameObject.tag != "PlayerLaser"){
+            Destroy(gameObject);
+        }
     }
 }

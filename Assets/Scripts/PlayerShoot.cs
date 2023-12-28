@@ -17,7 +17,8 @@ public class PlayerShoot : MonoBehaviour
     void Update()
     {
         if(Input.GetMouseButtonDown(0)){
-            Instantiate(playerLaser, laserSpawnPosition.position, Quaternion.LookRotation(transform.forward, transform.up));
+            GameObject laser = Instantiate(playerLaser, laserSpawnPosition.position, Quaternion.LookRotation(transform.forward, transform.up));
+            laser.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
         }
     }
 }
