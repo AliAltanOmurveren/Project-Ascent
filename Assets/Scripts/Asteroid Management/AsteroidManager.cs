@@ -7,6 +7,7 @@ public class AsteroidManager : MonoBehaviour
     public List<GameObject> asteroidPrefabs;
     public GameObject ship;
     int asteroidCount;
+    public float asteroidSphereRadius = 300;
 
     void Start()
     {
@@ -15,7 +16,11 @@ public class AsteroidManager : MonoBehaviour
         for(int i = 0; i < asteroidCount; i++){
             int randomIndex = Random.Range(0, asteroidPrefabs.Count);
 
-            Instantiate(asteroidPrefabs[randomIndex], getRandomPosition(ship, 5, 300), Quaternion.identity); 
+            GameObject asteroid = Instantiate(asteroidPrefabs[randomIndex], getRandomPosition(ship, 5, asteroidSphereRadius), Quaternion.identity); 
+            
+            asteroid.transform.SetParent(transform);
+
+            asteroid.GetComponent<Asteroid>().ship = ship;
         }
     }
 
