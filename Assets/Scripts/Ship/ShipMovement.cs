@@ -9,10 +9,13 @@ public class ShipMovement : MonoBehaviour
     float speedDamping = 0.0f;
 
     Rigidbody rb;
+    ShipBoost boost;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        boost = GetComponent<ShipBoost>();
     }
 
 
@@ -61,7 +64,7 @@ public class ShipMovement : MonoBehaviour
             rb.velocity *= speedDamping;
         }
 
-        if(Input.GetKey(KeyCode.LeftShift) && isMoving){
+        if(Input.GetKey(KeyCode.LeftShift) && isMoving && boost.canBoost){
             rb.velocity *= 10;
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed * 5);
         }
