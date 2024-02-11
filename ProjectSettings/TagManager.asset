@@ -7,6 +7,7 @@ TagManager:
   - ShipIgnore
   - PlayerLaser
   - Asteroid
+  - Placeholder
   layers:
   - Default
   - TransparentFX
