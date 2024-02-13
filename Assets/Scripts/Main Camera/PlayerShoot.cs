@@ -6,7 +6,8 @@ using TMPro;
 
 public class PlayerShoot : MonoBehaviour
 {
-    
+    TargetsInView targetsInView;
+
     public Transform laserSpawnPosition;
     public GameObject playerLaser;
 
@@ -21,6 +22,10 @@ public class PlayerShoot : MonoBehaviour
     public Sprite laserCrosshairSprite;
     public Sprite rocketCrosshairSprite;
 
+    public Image targetUI;
+
+    GameObject closestTarget;
+
     void Start()
     {
         remainingLaser = INITIAL_LASER_COUNT;
@@ -28,6 +33,10 @@ public class PlayerShoot : MonoBehaviour
         UpdateRemainingLaserUI();
 
         crosshairUI.sprite = laserCrosshairSprite;
+
+        targetsInView = GetComponent<TargetsInView>();
+
+        targetUI.enabled = false;
     }
 
 
@@ -39,10 +48,22 @@ public class PlayerShoot : MonoBehaviour
 
         if(Input.GetMouseButtonUp(1)){
             crosshairUI.sprite = laserCrosshairSprite;
+
+            targetUI.enabled = false;
         }
 
         if(Input.GetMouseButton(1)){
             // rocket
+
+            closestTarget = targetsInView.GetClosestTarget();
+
+            if(closestTarget){
+                targetUI.enabled = true;
+
+                targetUI.transform.position = Camera.main.WorldToScreenPoint(closestTarget.transform.position) * (Screen.width / 256.0f);
+            }else{
+                targetUI.enabled = false;
+            }
 
         }else{
             // laser
