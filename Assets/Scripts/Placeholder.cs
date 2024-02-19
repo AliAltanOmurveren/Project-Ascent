@@ -26,11 +26,11 @@ public class Placeholder : MonoBehaviour, ITarget
     void Update()
     {
         if(IsInCameraView()){
-            targetsInView.targets.Add(this);
+            targetsInView.visibleTargets.Add(this);
             wasInView = true;
         }else{
             if(wasInView){
-                targetsInView.targets.Remove(this);
+                targetsInView.visibleTargets.Remove(this);
                 wasInView = false;
             }
         }

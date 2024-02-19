@@ -54,13 +54,13 @@ public class PlayerShoot : MonoBehaviour
 
         if(Input.GetMouseButton(1)){
             // rocket
-
-            closestTarget = targetsInView.GetClosestTarget();
+            targetsInView.FindRocketTargets();
+            closestTarget = targetsInView.GetRocketTarget();
 
             if(closestTarget){
                 targetUI.enabled = true;
 
-                targetUI.transform.position = Camera.main.WorldToScreenPoint(closestTarget.transform.position) * (Screen.width / 256.0f);
+                targetUI.transform.position = Camera.main.WorldToScreenPoint(closestTarget.transform.position) * (Screen.width / Constants.RENDER_TEXTURE_WIDTH);
             }else{
                 targetUI.enabled = false;
             }
