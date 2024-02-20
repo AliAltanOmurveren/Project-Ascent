@@ -23,6 +23,7 @@ public class PlayerShoot : MonoBehaviour
     public Sprite rocketCrosshairSprite;
 
     public Image targetUI;
+    float targetRotationSpeed = 50;
 
     GameObject closestTarget;
 
@@ -44,9 +45,12 @@ public class PlayerShoot : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(1)){
             crosshairUI.sprite = rocketCrosshairSprite;
+
+            targetUI.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
         if(Input.GetMouseButtonUp(1)){
+            crosshairUI.enabled = true;
             crosshairUI.sprite = laserCrosshairSprite;
 
             targetUI.enabled = false;
@@ -58,11 +62,18 @@ public class PlayerShoot : MonoBehaviour
             closestTarget = targetsInView.GetRocketTarget();
 
             if(closestTarget){
+                crosshairUI.enabled = false;
+
                 targetUI.enabled = true;
 
                 targetUI.transform.position = Camera.main.WorldToScreenPoint(closestTarget.transform.position) * (Screen.width / Constants.RENDER_TEXTURE_WIDTH);
+
+                targetUI.transform.Rotate(new Vector3(0, 0, targetRotationSpeed * Time.deltaTime));
+
             }else{
+                crosshairUI.enabled = true;
                 targetUI.enabled = false;
+                targetUI.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
 
         }else{
